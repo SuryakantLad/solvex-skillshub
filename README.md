@@ -1,7 +1,7 @@
 # TalentGraph AI
 
 > AI-Powered Workforce Intelligence Platform
-> Built for the SkillsHub Hackathon Challenge by Team Solvex
+> Built for the SkillsHub Hackathon by Solvex
 
 TalentGraph AI is an intelligent workforce discovery platform that helps HR teams identify the right talent using semantic AI-powered search, resume intelligence, and reasoning-driven candidate matching.
 
@@ -128,7 +128,7 @@ Examples:
 
 # 🧱 System Architecture
 
-```txt
+```txt id="system-architecture"
 Frontend (Next.js)
         ↓
 API Layer (Next.js API Routes)
@@ -160,7 +160,7 @@ MongoDB Database
 
 # 📁 Project Structure
 
-```txt
+```txt id="project-structure"
 /app
   /api
   /dashboard
@@ -181,7 +181,7 @@ MongoDB Database
 
 ## 1. Clone Repository
 
-```bash
+```bash id="clone-repo"
 git clone https://github.com/your-username/solvex-talentgraph-ai.git
 ```
 
@@ -189,7 +189,7 @@ git clone https://github.com/your-username/solvex-talentgraph-ai.git
 
 ## 2. Install Dependencies
 
-```bash
+```bash id="install-dependencies"
 npm install
 ```
 
@@ -199,7 +199,7 @@ npm install
 
 Create `.env.local`
 
-```env
+```env id="env-example"
 MONGODB_URI=
 CLAUDE_API_KEY=
 JWT_SECRET=
@@ -210,7 +210,7 @@ NEXT_PUBLIC_APP_URL=
 
 ## 4. Run Development Server
 
-```bash
+```bash id="run-dev"
 npm run dev
 ```
 
@@ -250,11 +250,14 @@ The goal was not to build another CRUD HR system — but to create an intelligen
 
 ---
 
-# 👨‍💻 Team Solvex
+# 👨‍💻 Solvex
 
-Built with speed, AI, and product-first thinking during the SkillsHub Hackathon.
+Solvex is a two-member hackathon team:
 
-Team Solvex believes AI should augment workforce intelligence — not just automate forms.
+* Surya Lad
+* Claude AI
+
+Built with speed, AI-first thinking, and product-focused execution during the SkillsHub Hackathon.
 
 ---
 
@@ -272,6 +275,6 @@ The project prioritizes intelligent workflows, explainable AI, and real-world us
 
 ---
 
-# ⭐ Final Vision
+# ⭐ Vision
 
 TalentGraph AI is designed to evolve beyond a hackathon prototype into a true AI-powered workforce intelligence operating system for modern organizations.
