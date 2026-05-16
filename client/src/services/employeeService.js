@@ -16,7 +16,7 @@ export async function getEmployee(id) {
 }
 
 export async function getMyProfile() {
-  const { data } = await api.get('/api/employees/me/profile');
+  const { data } = await api.get('/api/employees/me');
   return data;
 }
 

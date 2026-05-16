@@ -4,7 +4,7 @@ import { parseJsonSafely } from '../services/ai/parser.js';
 import { buildSkillGapPrompt } from '../services/ai/prompts.js';
 
 export async function getAnalytics(req, res) {
-  const [skillFrequency, categoryBreakdown, proficiencyDistribution, departmentSkills, seniorityStats, topStats] = await Promise.all([
+  const [skillFrequency, categoryBreakdown, proficiencyDistribution, departmentSkills, seniorityStats, topStats, distinctDepts, recentEmployees, avgComplResult] = await Promise.all([
     Employee.aggregate([
       { $match: { isDeleted: false, status: 'active' } },
       { $unwind: '$skills' },
@@ -45,14 +45,41 @@ export async function getAnalytics(req, res) {
       { $group: { _id: null, totalEmployees: { $sum: 1 }, avgSkillsPerEmployee: { $avg: { $size: '$skills' } }, avgYearsExperience: { $avg: '$totalYearsExperience' }, availableCount: { $sum: { $cond: ['$availability.isAvailable', 1, 0] } } } },
       { $project: { totalEmployees: 1, avgSkillsPerEmployee: { $round: ['$avgSkillsPerEmployee', 1] }, avgYearsExperience: { $round: ['$avgYearsExperience', 1] }, availableCount: 1 } },
     ]),
+    Employee.distinct('department', { isDeleted: false, status: 'active', department: { $nin: ['', null] } }),
+    Employee.find({ isDeleted: false, status: 'active' })
+      .select('name title department availability profileCompleteness skills location totalYearsExperience')
+      .sort({ createdAt: -1 })
+      .limit(6)
+      .lean(),
+    Employee.aggregate([
+      { $match: { isDeleted: false, status: 'active' } },
+      { $group: { _id: null, avg: { $avg: '$profileCompleteness' } } },
+    ]),
   ]);
 
-  return res.json({ skillFrequency, categoryBreakdown, proficiencyDistribution, departmentSkills, seniorityStats, summary: topStats[0] ?? { totalEmployees: 0, avgSkillsPerEmployee: 0, avgYearsExperience: 0, availableCount: 0 } });
+  const summary = topStats[0] ?? { totalEmployees: 0, avgSkillsPerEmployee: 0, avgYearsExperience: 0, availableCount: 0 };
+  return res.json({
+    skillFrequency,
+    categoryBreakdown,
+    proficiencyDistribution,
+    departmentSkills,
+    seniorityStats,
+    summary,
+    stats: {
+      total: summary.totalEmployees,
+      departments: distinctDepts.length,
+      available: summary.availableCount,
+      avgCompleteness: Math.round(avgComplResult[0]?.avg ?? 0),
+    },
+    topSkills: skillFrequency.slice(0, 8).map((s) => ({ name: s.name, count: s.count })),
+    departments: distinctDepts,
+    recentEmployees,
+  });
 }
 
 export async function getSkillGap(req, res) {
-  const { roleTarget } = req.query;
-  if (!roleTarget) return res.status(400).json({ error: 'roleTarget query parameter is required' });
+  const roleTarget = req.query.roleTarget || req.query.role;
+  if (!roleTarget) return res.status(400).json({ error: 'role query parameter is required' });
 
   const employee = await Employee.findOne({ user: req.user.id }).select('skills').lean();
   if (!employee) return res.status(404).json({ error: 'Employee profile not found' });

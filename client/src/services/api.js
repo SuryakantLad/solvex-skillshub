@@ -9,7 +9,11 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    const status = error.response?.status;
+    const url = error.config?.url ?? '';
+    const onAuthPage = ['/login', '/signup'].includes(window.location.pathname);
+    // Don't redirect on the initial auth-check or if already on an auth page
+    if (status === 401 && !url.includes('/api/auth/me') && !onAuthPage) {
       window.location.href = '/login';
     }
     return Promise.reject(error);

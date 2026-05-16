@@ -8,7 +8,7 @@ export async function listEmployees(req, res) {
   const { department, skill, page = 1, limit = 20 } = req.query;
   const skip = (parseInt(page) - 1) * parseInt(limit);
 
-  const filter = {};
+  const filter = { isDeleted: false, status: 'active' };
   if (department) filter.department = { $regex: escapeRegex(department), $options: 'i' };
   if (skill) filter['skills.name'] = { $regex: escapeRegex(skill), $options: 'i' };
 
@@ -48,6 +48,18 @@ export async function updateEmployee(req, res) {
 export async function getMyProfile(req, res) {
   const employee = await Employee.findOne({ user: req.user.id }).select('-aiMetadata.resumeRawText').lean();
   if (!employee) return res.status(404).json({ error: 'Employee profile not found' });
+  return res.json({ employee });
+}
+
+export async function updateMyProfile(req, res) {
+  const employee = await Employee.findOne({ user: req.user.id });
+  if (!employee) return res.status(404).json({ error: 'Employee profile not found' });
+
+  const PROTECTED = ['user', '_id', 'aiMetadata', 'analytics', 'approval'];
+  for (const key of PROTECTED) delete req.body[key];
+
+  Object.assign(employee, req.body);
+  await employee.save();
   return res.json({ employee });
 }
 

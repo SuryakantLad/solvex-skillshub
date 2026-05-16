@@ -6,6 +6,6 @@ export async function getGitHubData() {
 }
 
 export async function syncGitHub(githubUsername) {
-  const { data } = await api.post('/api/github/sync', { githubUsername });
+  const { data } = await api.post('/api/github/sync', { username: githubUsername });
   return data;
 }

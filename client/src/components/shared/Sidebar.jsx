@@ -1,9 +1,9 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  Brain, LayoutDashboard, Users, Search, Wrench, User,
+  Brain, LayoutDashboard, Users, User,
   FileText, LogOut, ChevronLeft, ChevronRight, X,
-  Sun, Moon, Monitor, BarChart3, MessageSquare, Upload, Github,
+  Sun, Moon, Monitor, BarChart3, Github, Search, Wrench, Upload, MessageSquare,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -17,9 +17,10 @@ const HR_LINKS = [
   { href: '/hr/directory', icon: Users, label: 'Directory' },
   { href: '/hr/search', icon: Search, label: 'AI Search' },
   { href: '/hr/team-builder', icon: Wrench, label: 'Team Builder' },
-  { href: '/hr/analytics', icon: BarChart3, label: 'Analytics' },
   { href: '/hr/chat', icon: MessageSquare, label: 'AI Chat' },
   { href: '/hr/bulk-import', icon: Upload, label: 'Bulk Import' },
+  { href: '/hr/resume-reviews', icon: FileText, label: 'Resume Reviews' },
+  { href: '/hr/analytics', icon: BarChart3, label: 'Analytics' },
 ];
 
 const EMPLOYEE_LINKS = [

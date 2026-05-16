@@ -120,7 +120,7 @@ export default function AuthLayout() {
           </div>
 
           {/* Testimonial */}
-          <motion.div
+          {/* <motion.div
             className="mt-6 p-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -136,7 +136,7 @@ export default function AuthLayout() {
                 <p className="text-white/50 text-[10px]">Head of Talent · Acme Corp</p>
               </div>
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
 

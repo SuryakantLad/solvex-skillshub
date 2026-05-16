@@ -20,6 +20,7 @@ const TeamBuilderPage = lazy(() => import('@/pages/hr/TeamBuilderPage'));
 const AnalyticsPage = lazy(() => import('@/pages/hr/AnalyticsPage'));
 const ChatPage = lazy(() => import('@/pages/hr/ChatPage'));
 const BulkImportPage = lazy(() => import('@/pages/hr/BulkImportPage'));
+const ResumeReviewsPage = lazy(() => import('@/pages/hr/ResumeReviewsPage'));
 
 const EmployeeDashboard = lazy(() => import('@/pages/employee/EmployeeDashboard'));
 const ProfilePage = lazy(() => import('@/pages/employee/ProfilePage'));
@@ -58,6 +59,7 @@ export default function App() {
                   <Route path="/hr/analytics" element={<AnalyticsPage />} />
                   <Route path="/hr/chat" element={<ChatPage />} />
                   <Route path="/hr/bulk-import" element={<BulkImportPage />} />
+                  <Route path="/hr/resume-reviews" element={<ResumeReviewsPage />} />
                 </Route>
               </Route>
 

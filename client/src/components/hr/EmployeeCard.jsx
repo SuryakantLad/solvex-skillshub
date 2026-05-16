@@ -8,11 +8,11 @@ import { Progress } from '@/components/ui/progress';
 import { getInitials, getAvatarUrl, getProficiencyColor, getMatchScoreColor, getMatchScoreBg } from '@/lib/utils';
 
 export default function EmployeeCard({ employee, matchScore, matchLevel, keyStrengths, reasoning }) {
-  const topSkills = (employee?.skills ?? []).filter((s) => !s.inferred).slice(0, 4);
+  const topSkills = (employee?.skills ?? []).filter((s) => !s.isInferred).slice(0, 4);
   const isAvailable = employee?.availability?.isAvailable;
 
   return (
-    <motion.div whileHover={{ y: -2 }} transition={{ type: 'spring', stiffness: 400, damping: 30 }}>
+    <motion.div whileHover={{ y: -2 }} transition={{ type: 'spring', stiffness: 400, damping: 30 }} className="h-full">
       <Card className="group transition-all duration-200 hover:shadow-card-premium-hover hover:border-primary/20 flex flex-col h-full">
         <CardContent className="p-5 flex flex-col gap-3.5 flex-1">
 

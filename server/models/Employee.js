@@ -210,6 +210,7 @@ const EmployeeSchema = new Schema(
     approval: { type: ProfileApprovalSchema, default: () => ({}) },
     githubData: { type: GitHubDataSchema, default: () => ({}) },
     analytics: { type: AnalyticsSchema, default: () => ({}) },
+    pendingResumeData: { type: Schema.Types.Mixed, default: null },
     profileCompleteness: { type: Number, default: 0, min: 0, max: 100 },
     tags: [{ type: String, trim: true, lowercase: true }],
     isDeleted: { type: Boolean, default: false, index: true },
