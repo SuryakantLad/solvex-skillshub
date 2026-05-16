@@ -81,9 +81,6 @@ export async function getSkillGap(req, res) {
   const roleTarget = req.query.roleTarget || req.query.role;
   if (!roleTarget) return res.status(400).json({ error: 'role query parameter is required' });
 
-  const employee = await Employee.findOne({ user: req.user.id }).select('skills').lean();
-  if (!employee) return res.status(404).json({ error: 'Employee profile not found' });
-
   const orgTopSkills = await Employee.aggregate([
     { $match: { isDeleted: false, status: 'active' } },
     { $unwind: '$skills' },
@@ -93,7 +90,18 @@ export async function getSkillGap(req, res) {
     { $project: { name: '$_id', _id: 0 } },
   ]);
 
-  const prompt = buildSkillGapPrompt(roleTarget, employee.skills || [], orgTopSkills);
+  // HR users don't have an employee profile — use org skills as the baseline.
+  // Employee users compare against their own skills.
+  let currentSkills = [];
+  if (req.user.role !== 'hr') {
+    const employee = await Employee.findOne({ user: req.user.id }).select('skills').lean();
+    if (employee) currentSkills = employee.skills || [];
+  } else {
+    // For HR: treat org's top skills as the "current" pool being analysed
+    currentSkills = orgTopSkills.map((s) => ({ name: s.name, proficiency: 'intermediate' }));
+  }
+
+  const prompt = buildSkillGapPrompt(roleTarget, currentSkills, orgTopSkills);
   const rawText = await generateJSON(prompt);
   const analysis = parseJsonSafely(rawText);
 
