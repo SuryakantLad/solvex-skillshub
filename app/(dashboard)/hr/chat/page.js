@@ -252,7 +252,7 @@ export default function ChatPage() {
           </Button>
         </div>
         <p className="text-[10px] text-muted-foreground mt-2 text-center">
-          Powered by Gemini 2.5 Flash · Context is maintained within this session
+          Powered by Claude · Context is maintained within this session
         </p>
       </div>
     </div>

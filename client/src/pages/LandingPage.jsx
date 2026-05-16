@@ -199,7 +199,7 @@ export default function LandingPage() {
             }}
           >
             <Sparkles className="w-3 h-3" />
-            Powered by Gemini AI — Google's most capable model
+            Powered by Claude AI — Anthropic's most capable model
           </motion.div>
 
           {/* Headline */}
@@ -228,7 +228,7 @@ export default function LandingPage() {
             className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed"
           >
             Parse resumes in seconds, discover hidden talent with semantic search, and
-            build high-performance teams — all powered by Gemini AI.
+            build high-performance teams — all powered by Claude AI.
           </motion.p>
 
           {/* CTAs */}
@@ -505,7 +505,7 @@ export default function LandingPage() {
             </div>
             <span className="font-semibold text-sm text-muted-foreground">TalentGraph AI</span>
           </div>
-          <p className="text-muted-foreground/50 text-sm">© 2026 TalentGraph AI. Powered by Gemini.</p>
+          <p className="text-muted-foreground/50 text-sm">© 2026 TalentGraph AI. Powered by Claude.</p>
         </div>
       </footer>
     </div>

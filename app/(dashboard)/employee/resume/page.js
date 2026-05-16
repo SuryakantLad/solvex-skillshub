@@ -115,7 +115,7 @@ export default function ResumePage() {
                   Upload Resume
                 </CardTitle>
                 <CardDescription>
-                  Powered by Gemini 2.5 Flash — supports any text-based PDF resume format
+                  Powered by Claude AI — supports any text-based PDF resume format
                 </CardDescription>
               </CardHeader>
               <CardContent>

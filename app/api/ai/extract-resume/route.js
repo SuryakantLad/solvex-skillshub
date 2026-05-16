@@ -1,6 +1,6 @@
 /**
  * POST /api/ai/extract-resume
- * Full AI resume extraction pipeline using Gemini 2.5 Flash.
+ * Full AI resume extraction pipeline using Claude AI.
  *
  * Accepts: { resumeText: string } — raw text already extracted from PDF
  * Returns: { success: true, data: parsedResume, meta: { attempt, warnings, durationMs } }

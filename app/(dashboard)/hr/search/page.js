@@ -116,7 +116,7 @@ export default function SearchPage() {
     <div className="space-y-6">
       <PageHeader
         title="AI Talent Search"
-        description="Describe what you're looking for in plain English — Gemini AI ranks every candidate."
+        description="Describe what you're looking for in plain English — Claude AI ranks every candidate."
         action={
           sortedResults !== null && (
             <Badge variant="secondary" className="text-xs tabular-nums">
@@ -373,7 +373,7 @@ function AIThinkingBanner({ query }) {
         />
       </div>
       <div className="text-center sm:text-left">
-        <p className="font-semibold text-sm">Gemini is ranking candidates for "{query}"</p>
+        <p className="font-semibold text-sm">Claude is ranking candidates for "{query}"</p>
         <AnimatePresence mode="wait">
           <motion.p
             key={idx}
@@ -439,7 +439,7 @@ function IdleState({ onExampleClick }) {
         <div>
           <h3 className="font-semibold text-lg">Describe the talent you need</h3>
           <p className="text-sm text-muted-foreground mt-1.5 max-w-md leading-relaxed">
-            Gemini AI understands context, infers related skills, and ranks every candidate
+            Claude AI understands context, infers related skills, and ranks every candidate
             by how well they match — not just keyword hits.
           </p>
         </div>

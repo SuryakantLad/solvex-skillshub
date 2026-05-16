@@ -25,7 +25,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
     }
 
-    // Build Gemini prompt using the chat prompt builder
+    // Build Claude AI prompt using the chat prompt builder
     const prompt = buildChatPrompt(message, history, currentCandidates);
 
     const rawText = await generateChat(prompt);
@@ -43,7 +43,7 @@ export async function POST(request) {
       };
     }
 
-    // If Gemini wants to search, execute it
+    // If Claude AI wants to search, execute it
     let searchResults = null;
     if (aiResponse.action === 'search' && aiResponse.searchQuery) {
       await connectDB();
@@ -70,7 +70,7 @@ export async function POST(request) {
         .limit(MAX_CANDIDATES)
         .lean();
 
-      // Fast keyword scoring (no extra Gemini call needed for chat refinements)
+      // Fast keyword scoring (no extra Claude AI call needed for chat refinements)
       searchResults = keywordScore(aiResponse.searchQuery, employees)
         .slice(0, 15)
         .map(({ _keywordScore, ...emp }) => emp);
@@ -88,7 +88,7 @@ export async function POST(request) {
   } catch (error) {
     console.error('[chat-search]', error);
     if (error?.message?.includes('RESOURCE_EXHAUSTED')) {
-      return NextResponse.json({ error: 'Gemini rate limit reached. Please try again.' }, { status: 503 });
+      return NextResponse.json({ error: 'Claude AI rate limit reached. Please try again.' }, { status: 503 });
     }
     return NextResponse.json({ error: 'Chat failed. Please try again.' }, { status: 500 });
   }

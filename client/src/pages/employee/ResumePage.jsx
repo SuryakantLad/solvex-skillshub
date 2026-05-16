@@ -234,7 +234,7 @@ export default function ResumePage() {
                 <CardContent className="p-4 space-y-2">
                   <div className="flex items-center gap-2 text-sm">
                     <Sparkles className="w-4 h-4 text-primary animate-pulse shrink-0" />
-                    <p className="font-medium">Gemini AI is reading your resume…</p>
+                    <p className="font-medium">Claude AI is reading your resume…</p>
                   </div>
                   <Progress value={undefined} className="h-1 animate-pulse" />
                   <p className="text-xs text-muted-foreground">Extracting skills, experience, education and certifications</p>

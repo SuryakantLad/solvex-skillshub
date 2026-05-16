@@ -114,7 +114,7 @@ export async function POST(request) {
     console.error('Search error:', error);
 
     if (error?.message?.includes('RESOURCE_EXHAUSTED') || error?.message?.includes('429')) {
-      return NextResponse.json({ error: 'Gemini AI rate limit reached. Please try again in a moment.' }, { status: 503 });
+      return NextResponse.json({ error: 'Claude AI rate limit reached. Please try again in a moment.' }, { status: 503 });
     }
     if (error.message?.includes('GEMINI_API_KEY') || error.message?.includes('API_KEY')) {
       return NextResponse.json({ error: 'AI service unavailable. Check your GEMINI_API_KEY configuration.' }, { status: 503 });

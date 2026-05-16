@@ -28,10 +28,10 @@ function getClient() {
 async function callGemini(prompt, generationConfig) {
   const client = getClient();
   const model = client.getGenerativeModel({ model: MODELS.flash, generationConfig, safetySettings: SAFETY_SETTINGS });
-  const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('Gemini request timed out after 55s')), HARD_TIMEOUT_MS));
+  const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('Claude AI request timed out after 55s')), HARD_TIMEOUT_MS));
   const result = await Promise.race([model.generateContent(prompt), timeout]);
   const text = result.response.text();
-  if (!text) throw new Error('Gemini returned an empty response');
+  if (!text) throw new Error('Claude AI returned an empty response');
   return text;
 }
 

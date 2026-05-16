@@ -21,7 +21,7 @@ export async function semanticSearchEmployees(query, employees) {
   const rawResults = parseJsonSafely(rawText);
 
   if (!Array.isArray(rawResults)) {
-    throw new Error('Gemini did not return a valid array for search results');
+    throw new Error('Claude AI did not return a valid array for search results');
   }
 
   // Remap numeric keys back to real MongoDB ObjectIds
@@ -51,7 +51,7 @@ export async function buildOptimalTeam(requirement, employees, constraints = {})
   const team = parseJsonSafely(rawText);
 
   if (!team || typeof team !== 'object' || !Array.isArray(team.members)) {
-    throw new Error('Gemini did not return a valid team object');
+    throw new Error('Claude AI did not return a valid team object');
   }
 
   // Remap member ids

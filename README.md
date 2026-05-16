@@ -3,7 +3,7 @@
 > AI-Powered Workforce Intelligence Platform
 > Built for the SkillsHub Hackathon by Solvex
 
-TalentGraph AI is an intelligent workforce discovery platform that helps HR teams identify the right talent using semantic AI-powered search, resume intelligence, and reasoning-driven candidate matching — powered by **Google Gemini 2.5 Flash**.
+TalentGraph AI is an intelligent workforce discovery platform that helps HR teams identify the right talent using semantic AI-powered search, resume intelligence, and reasoning-driven candidate matching — powered by **Anthropic Claude**.
 
 Instead of relying on outdated spreadsheets or keyword filters, TalentGraph AI understands skills contextually and helps organizations discover, evaluate, and assemble high-performing teams through natural language interactions.
 
@@ -28,7 +28,7 @@ TalentGraph AI solves this by:
 
 ### AI Resume Intelligence
 
-Upload a resume PDF and Gemini 2.5 Flash automatically extracts:
+Upload a resume PDF and Claude automatically extracts:
 
 * Skills with proficiency levels and years of experience
 * Work history, achievements, and technologies used
@@ -201,9 +201,9 @@ All AI-generated profiles go through a structured approval workflow:
 
 | Tool | Purpose |
 |------|---------|
-| Google Gemini 2.5 Flash | Resume extraction, semantic search ranking, team composition, chat intent parsing |
+| Anthropic Claude | Resume extraction, semantic search ranking, team composition, chat intent parsing |
 | text-embedding-004 | Embedding-based semantic similarity for candidate ranking |
-| @google/generative-ai SDK | v0.24+ Gemini API client |
+| @anthropic-ai/sdk | Anthropic Claude API client |
 | @anthropic-ai/sdk | Anthropic Claude client (integrated, available for use) |
 
 AI client features:
@@ -237,7 +237,7 @@ Browser (Next.js App Router)
     ┌────┴────────────────────────┐
     │                             │
     ▼                             ▼
-MongoDB (Mongoose)        Google Gemini 2.5 Flash
+MongoDB (Mongoose)        Anthropic Claude
   - Employee                - Resume extraction
   - User                    - Semantic ranking
   - Skill                   - Team composition
@@ -306,7 +306,7 @@ Solvex-skillshub-Project/
 │
 ├── lib/
 │   ├── ai/
-│   │   ├── gemini.js             # Gemini client (retry, timeout, safety settings)
+│   │   ├── gemini.js             # Claude AI client (retry, timeout, safety settings)
 │   │   ├── prompts.js            # 8 AI prompt templates
 │   │   ├── parser.js             # Robust JSON parser with auto-repair
 │   │   ├── search.js             # Semantic search + team builder logic
@@ -333,7 +333,7 @@ Solvex-skillshub-Project/
 │   ├── server.js                  # Entry point (port 5000)
 │   ├── routes/                    # auth, employees, search, team-builder, resume, analytics, github
 │   ├── controllers/               # authController, employeeController, searchController
-│   ├── services/ai/               # gemini.js, prompts.js
+│   ├── services/ai/               # claude.js, prompts.js
 │   ├── models/                    # User, Employee, Skill
 │   ├── middlewares/               # errorHandler, auth, validation
 │   └── config/                    # db.js, env.js
@@ -358,7 +358,7 @@ Solvex-skillshub-Project/
 * Node.js 20+
 * npm 10+
 * MongoDB (local or Atlas)
-* Google Gemini API key — get one free at [aistudio.google.com](https://aistudio.google.com)
+* Anthropic API key — get one at [console.anthropic.com](https://console.anthropic.com)
 
 ---
 
@@ -385,8 +385,8 @@ MONGODB_URI=mongodb://localhost:27017/talentgraph
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-super-secret-key-min-32-chars
 
-# Google Gemini AI
-GEMINI_API_KEY=your-gemini-api-key-here
+# Google Claude AI
+ANTHROPIC_API_KEY=your-anthropic-api-key-here
 
 # App
 NEXT_PUBLIC_APP_URL=http://localhost:3000
@@ -447,7 +447,7 @@ PORT=5000
 MONGODB_URI=mongodb://localhost:27017/talentgraph
 JWT_SECRET=your-super-secret-key-min-32-chars
 JWT_EXPIRES_IN=30d
-GEMINI_API_KEY=your-gemini-api-key-here
+ANTHROPIC_API_KEY=your-anthropic-api-key-here
 CLIENT_URL=http://localhost:5173
 NODE_ENV=development
 ```
@@ -496,7 +496,7 @@ npm run dev:client
 
 **Query:** `"Find backend developers with payment gateway experience"`
 
-**Gemini Response:**
+**Claude Response:**
 > Bob is a strong match — 5 years of Node.js with PostgreSQL, implemented payment APIs at Shopify, and has direct AWS experience relevant to payment infrastructure. Available immediately.
 
 ---
@@ -505,7 +505,7 @@ npm run dev:client
 
 **Requirement:** `"Build a fintech mobile app with real-time payments and fraud detection with 5 years experience"`
 
-**Gemini Output:**
+**Claude Output:**
 * Mobile Lead — React Native + Swift specialist
 * Backend Engineer — Node.js + PostgreSQL for payment APIs
 * ML Engineer — Python + fraud detection models
@@ -519,8 +519,8 @@ Hard constraint applied: only candidates with ≥ 5 years experience considered.
 
 This project addresses the two core AI challenges from the problem statement:
 
-1. **Smart Profile Ingestion** — Gemini extracts structured, reasoned profile data from unstructured resume PDFs with proficiency calibration and career trajectory analysis
-2. **Semantic Natural Language Search** — Gemini ranks candidates by semantic relevance, not keyword overlap, with per-candidate explanations grounded in actual profile data
+1. **Smart Profile Ingestion** — Claude extracts structured, reasoned profile data from unstructured resume PDFs with proficiency calibration and career trajectory analysis
+2. **Semantic Natural Language Search** — Claude ranks candidates by semantic relevance, not keyword overlap, with per-candidate explanations grounded in actual profile data
 
 ---
 
