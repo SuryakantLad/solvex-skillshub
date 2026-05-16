@@ -9,7 +9,7 @@ Instead of relying on outdated spreadsheets or keyword filters, TalentGraph AI u
 
 ---
 
-## 🚀 Problem Statement
+## Problem Statement
 
 Modern organizations struggle to understand and utilize employee skill data effectively. Traditional HR systems rely heavily on manual tagging, static profiles, and keyword matching, making talent discovery inefficient and inaccurate.
 
@@ -24,9 +24,9 @@ TalentGraph AI solves this by:
 
 ---
 
-## ✨ Features
+## Features
 
-### 🧠 AI Resume Intelligence
+### AI Resume Intelligence
 
 Upload a resume PDF and Gemini 2.5 Flash automatically extracts:
 
@@ -36,11 +36,11 @@ Upload a resume PDF and Gemini 2.5 Flash automatically extracts:
 * Seniority level, domain expertise, and career trajectory
 * AI-generated profile summary and strengths
 
-Employees review the parsed data before saving it to their profile through a guided 3-step workflow (Upload → Review → Save).
+Employees review the parsed data before saving it through a guided 3-step workflow (Upload → Review → Save).
 
 ---
 
-### 🔍 Semantic Talent Search
+### Semantic Talent Search
 
 Search your talent pool using plain English:
 
@@ -56,7 +56,7 @@ TalentGraph AI returns:
 
 ---
 
-### 💬 AI Chat Search
+### AI Chat Search
 
 Conversational talent discovery with session memory:
 
@@ -72,7 +72,7 @@ The chat interface:
 
 ---
 
-### 👥 AI Team Builder
+### AI Team Builder
 
 Describe a project and generate an optimized team instantly:
 
@@ -88,7 +88,7 @@ The platform:
 
 ---
 
-### 📊 Skill Gap Analytics
+### Skill Gap Analytics
 
 Organization-wide intelligence dashboard for HR teams with:
 
@@ -100,7 +100,7 @@ Organization-wide intelligence dashboard for HR teams with:
 
 ---
 
-### 🐙 GitHub Integration
+### GitHub Integration
 
 Employees can connect their public GitHub profile to enrich their profile:
 
@@ -111,7 +111,7 @@ Employees can connect their public GitHub profile to enrich their profile:
 
 ---
 
-### 📦 Bulk Resume Import
+### Bulk Resume Import
 
 HR teams can import multiple employees at once:
 
@@ -123,7 +123,7 @@ HR teams can import multiple employees at once:
 
 ---
 
-### 🧾 Profile Review Workflow
+### Profile Review Workflow
 
 All AI-generated profiles go through a structured approval workflow:
 
@@ -134,71 +134,127 @@ All AI-generated profiles go through a structured approval workflow:
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-### Frontend
+### Frontend (Next.js App — Primary)
 
-* Next.js 15 (App Router, Server + Client Components)
-* JavaScript (ES2024)
-* Tailwind CSS
-* Shadcn UI (Radix UI primitives)
-* Framer Motion (page transitions, animated cards)
-* Recharts (analytics charts)
-* Lucide React (icons)
+| Tool | Version | Purpose |
+|------|---------|---------|
+| Next.js | 15.1+ | App Router, Server + Client Components, API Routes |
+| React | 18.3+ | UI library |
+| Tailwind CSS | 3.4+ | Utility-first styling |
+| Shadcn UI | Latest | Component system built on Radix UI primitives |
+| Framer Motion | 11.x | Page transitions and animated cards |
+| Recharts | 2.14+ | Analytics charts and skill distribution graphs |
+| Lucide React | Latest | Icon library |
+| React Hook Form | 7.x | Form state management |
+| Zod | 3.x | Schema validation |
+| Sonner | 1.7+ | Toast notifications |
 
-### Backend
+### Frontend (Vite Client — Alternative/Legacy)
 
-* Next.js API Routes (Node.js runtime)
-* JWT authentication (HTTP-only cookies)
-* Role-based access control (HR / Employee)
+| Tool | Version | Purpose |
+|------|---------|---------|
+| React | 18.3+ | UI library |
+| Vite | 6.x | Build tool and dev server |
+| React Router DOM | 6.x | Client-side routing |
+| Axios | 1.7+ | HTTP client for API calls |
+| Tailwind CSS | 3.4+ | Styling |
+| Framer Motion | 11.x | Animations |
+| Recharts | 2.14+ | Charts |
+
+### Backend (Next.js API Routes — Primary)
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| Next.js API Routes | 15.x | Serverless API endpoints |
+| Node.js | 20+ | Runtime |
+| jose | 5.x | JWT token creation and verification |
+| bcryptjs | 2.x | Password hashing |
+| pdf-parse | 1.x | PDF text extraction with Unicode cleaning |
+| concurrently | 8.x | Run multiple scripts in parallel |
+
+### Backend (Express Server — Alternative)
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| Express | 4.18+ | HTTP server framework |
+| helmet | 7.x | Security headers |
+| morgan | 1.x | HTTP request logging |
+| cors | 2.x | Cross-origin resource sharing |
+| express-rate-limit | 7.x | Rate limiting |
+| multer | 1.x | Multipart file upload handling |
+| cookie-parser | 1.x | Cookie middleware |
+| jsonwebtoken | 9.x | JWT auth |
+| nodemon | 3.x | Dev auto-restart |
 
 ### Database
 
-* MongoDB (Atlas or local)
-* Mongoose ODM
-* Aggregation pipelines for analytics
+| Tool | Version | Purpose |
+|------|---------|---------|
+| MongoDB | Atlas or local | Primary data store |
+| Mongoose | 8.x | ODM with aggregation pipelines |
+
+**Models:** `User`, `Employee`, `Skill`, `SearchHistory`, `TeamBuilderSession`
 
 ### AI Layer
 
-* **Google Gemini 2.5 Flash** — resume extraction, semantic search ranking, team composition, chat intent parsing, skill inference
-* **text-embedding-004** — semantic similarity for embedding-based candidate ranking
-* Production-grade client with exponential backoff retry, 55s timeout guard, and permissive safety settings for HR content
+| Tool | Purpose |
+|------|---------|
+| Google Gemini 2.5 Flash | Resume extraction, semantic search ranking, team composition, chat intent parsing |
+| text-embedding-004 | Embedding-based semantic similarity for candidate ranking |
+| @google/generative-ai SDK | v0.24+ Gemini API client |
+| @anthropic-ai/sdk | Anthropic Claude client (integrated, available for use) |
+
+AI client features:
+* Exponential backoff retry on rate limits
+* 55-second timeout guard
+* Permissive safety settings for HR content
 * In-memory LRU cache (2-min TTL for search, 5-min for team builder)
+* Skill inference engine with 100+ domain rules
 
-### Additional
+### Auth
 
-* `pdf-parse` — PDF text extraction with Unicode ligature cleaning
-* GitHub REST API (public, unauthenticated)
-* `@google/generative-ai` SDK v0.24+
+| Tool | Purpose |
+|------|---------|
+| JWT (HTTP-only cookies) | Stateless session management |
+| NextAuth.js | OAuth-ready auth adapter |
+| Role-based middleware | HR vs Employee route enforcement |
 
 ---
 
-## 🧱 System Architecture
+## System Architecture
 
 ```
 Browser (Next.js App Router)
          │
          ▼
+  Next.js Middleware (JWT auth, role routing)
+         │
+         ▼
   API Routes (/api/*)
          │
-    ┌────┴────────────────────┐
-    │                         │
-    ▼                         ▼
-MongoDB (Mongoose)    Gemini 2.5 Flash
-  - Employee              - Resume extraction
-  - User                  - Semantic ranking
-  - Skill                 - Team composition
-                          - Chat intent
-                          - Skill inference
-                          │
-                          ▼
-                  text-embedding-004
-                  (semantic similarity)
+    ┌────┴────────────────────────┐
+    │                             │
+    ▼                             ▼
+MongoDB (Mongoose)        Google Gemini 2.5 Flash
+  - Employee                - Resume extraction
+  - User                    - Semantic ranking
+  - Skill                   - Team composition
+  - SearchHistory           - Chat intent
+  - TeamBuilderSession      - Skill inference
+                                  │
+                                  ▼
+                          text-embedding-004
+                          (semantic similarity)
+
+Alternative Stack:
+  Vite Client (port 5173) → Express Server (port 5000) → MongoDB
 ```
 
 ---
 
-## 🔐 User Roles
+## User Roles
 
 ### HR Team (`/hr/*`)
 
@@ -207,7 +263,7 @@ MongoDB (Mongoose)    Gemini 2.5 Flash
 * Team Builder with project-to-team composition
 * Employee directory with department/skill filters
 * Skill Gap Analytics dashboard
-* Bulk resume import
+* Bulk resume import (up to 20 PDFs)
 * Profile approval workflow
 
 ### Employees (`/employee/*`)
@@ -219,81 +275,111 @@ MongoDB (Mongoose)    Gemini 2.5 Flash
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
-/app
-  /api
-    /employees          # CRUD + /me endpoint
-    /search             # Semantic search + /chat
-    /team-builder       # AI team composition
-    /resume
-      /parse            # Single PDF parse
-      /bulk             # Multi-PDF bulk import
-    /analytics
-      /skill-gap        # 6-aggregation analytics pipeline
-    /github
-      /sync             # GitHub profile sync
-    /ai
-      /extract-resume   # Direct AI extraction endpoint
-    /seed               # Dev seeding
-  /(dashboard)
-    /hr                 # HR pages (search, directory, team-builder, analytics, chat, bulk-import)
-    /employee           # Employee pages (profile, resume, github)
-/components
-  /hr                   # EmployeeCard, SearchResultCard, TeamMemberCard
-  /employee             # ResumeUpload, ParsedResumeReview
-  /shared               # Sidebar, PageHeader, SkeletonCard, EmptyState
-  /dashboard            # StatsCard
-  /ui                   # Shadcn primitives
-/lib
-  /ai
-    gemini.js           # Gemini client (retry, timeout, safety)
-    prompts.js          # 8 prompt templates
-    parser.js           # Robust JSON parser with repair
-    search.js           # Semantic search + team builder
-    embeddings.js       # text-embedding-004 ranking
-    extractor.js        # Resume data extraction
-    utils.js            # LRU cache, serializers, error classifier
-  /db
-    /models             # Employee, User, Skill schemas
-    seed.js             # Demo data seeder
-  /github
-    service.js          # GitHub public API sync
-  /resume
-    parser.js           # PDF text extraction
-  /auth
-    guards.js           # getAuthUser, requireAuth
-/context
-  AuthContext.jsx
-/hooks
-  useDebounce.js
+Solvex-skillshub-Project/
+├── app/                          # Next.js 15 App Router (primary app)
+│   ├── api/
+│   │   ├── employees/            # CRUD + /me endpoint
+│   │   ├── search/               # Semantic search + /chat
+│   │   ├── team-builder/         # AI team composition
+│   │   ├── resume/
+│   │   │   ├── parse/            # Single PDF parse
+│   │   │   └── bulk/             # Multi-PDF bulk import
+│   │   ├── analytics/skill-gap/  # 6-aggregation analytics pipeline
+│   │   ├── github/sync/          # GitHub profile sync
+│   │   ├── ai/extract-resume/    # Direct AI extraction endpoint
+│   │   ├── auth/                 # Login, register, logout, me
+│   │   └── seed/                 # Dev data seeder
+│   ├── (auth)/                   # Login, Register, Signup pages
+│   └── (dashboard)/
+│       ├── hr/                   # Search, directory, team-builder, analytics, chat, bulk-import
+│       └── employee/             # Profile, resume, github pages
+│
+├── components/
+│   ├── hr/                       # EmployeeCard, SearchResultCard, TeamMemberCard
+│   ├── employee/                 # ResumeUpload, ParsedResumeReview, SkillsEditor
+│   ├── shared/                   # Sidebar, PageHeader, SkeletonCard, EmptyState
+│   ├── dashboard/                # StatsCard
+│   └── ui/                       # Shadcn UI primitives (button, card, dialog, etc.)
+│
+├── lib/
+│   ├── ai/
+│   │   ├── gemini.js             # Gemini client (retry, timeout, safety settings)
+│   │   ├── prompts.js            # 8 AI prompt templates
+│   │   ├── parser.js             # Robust JSON parser with auto-repair
+│   │   ├── search.js             # Semantic search + team builder logic
+│   │   ├── embeddings.js         # text-embedding-004 ranking
+│   │   ├── extractor.js          # Resume data extraction orchestration
+│   │   ├── inference.js          # Skill inference engine (100+ rules)
+│   │   └── utils.js              # LRU cache, serializers, error classifier
+│   ├── db/
+│   │   ├── models/               # Employee, User, Skill, SearchHistory, TeamBuilderSession
+│   │   └── seed.js               # Demo data (2 HR users, 8 employees)
+│   ├── auth/
+│   │   ├── jwt.js                # Token creation/verification (jose)
+│   │   ├── cookies.js            # HTTP-only cookie management
+│   │   ├── guards.js             # getAuthUser, requireAuth helpers
+│   │   └── options.js            # NextAuth config
+│   ├── github/service.js         # GitHub public API sync
+│   └── resume/parser.js          # PDF text extraction
+│
+├── context/AuthContext.jsx
+├── hooks/useDebounce.js
+├── middleware.js                  # JWT verification + role-based routing
+│
+├── server/                        # Express.js backend (alternative stack)
+│   ├── server.js                  # Entry point (port 5000)
+│   ├── routes/                    # auth, employees, search, team-builder, resume, analytics, github
+│   ├── controllers/               # authController, employeeController, searchController
+│   ├── services/ai/               # gemini.js, prompts.js
+│   ├── models/                    # User, Employee, Skill
+│   ├── middlewares/               # errorHandler, auth, validation
+│   └── config/                    # db.js, env.js
+│
+└── client/                        # Vite + React frontend (alternative stack)
+    ├── src/
+    │   ├── pages/
+    │   ├── components/
+    │   ├── context/
+    │   ├── hooks/
+    │   ├── services/
+    │   └── routes/
+    └── vite.config.js
 ```
 
 ---
 
-## ⚡ Getting Started
+## Getting Started
 
-### 1. Clone Repository
+### Prerequisites
 
-```bash
-git clone https://github.com/your-username/solvex-talentgraph-ai.git
-cd solvex-talentgraph-ai
-```
+* Node.js 20+
+* npm 10+
+* MongoDB (local or Atlas)
+* Google Gemini API key — get one free at [aistudio.google.com](https://aistudio.google.com)
 
-### 2. Install Dependencies
+---
+
+### Option A — Next.js Full-Stack (Recommended)
+
+This runs the complete app: Next.js handles both the frontend and API routes on a single port.
+
+#### 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Configure Environment Variables
+#### 2. Configure environment variables
 
 Create `.env.local` in the project root:
 
 ```env
 # MongoDB
 MONGODB_URI=mongodb://localhost:27017/talentgraph
+# or Atlas: mongodb+srv://<user>:<password>@cluster.mongodb.net/talentgraph
 
 # Auth
 NEXTAUTH_URL=http://localhost:3000
@@ -307,34 +393,104 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 NEXT_PUBLIC_APP_NAME=TalentGraph AI
 ```
 
-Get your Gemini API key at [aistudio.google.com](https://aistudio.google.com).
-
-### 4. Seed Demo Data
-
-```bash
-# Start the dev server first, then:
-curl -X POST http://localhost:3000/api/seed
-```
-
-This creates 2 HR users and 8 employee profiles with skills, experience, and certifications.
-
-**Demo credentials:**
-| Role | Email | Password |
-|------|-------|----------|
-| HR | sarah.mitchell@company.com | Password123! |
-| Employee | alice.chen@company.com | Password123! |
-
-### 5. Run Development Server
+#### 3. Run the development server
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+App runs at **http://localhost:3000**
+
+#### 4. Seed demo data (optional)
+
+```bash
+# With the server running:
+curl -X POST http://localhost:3000/api/seed
+
+# Or on Windows PowerShell:
+Invoke-RestMethod -Method POST http://localhost:3000/api/seed
+```
+
+This creates 2 HR users and 8 employee profiles with full skills, experience, and certifications.
+
+**Demo credentials:**
+
+| Role | Email | Password |
+|------|-------|----------|
+| HR | sarah.mitchell@company.com | Password123! |
+| HR | jennifer.park@company.com | Password123! |
+| Employee | alice.chen@company.com | Password123! |
+| Employee | bob.martinez@company.com | Password123! |
 
 ---
 
-## 🧠 AI Reasoning Examples
+### Option B — Express + Vite (Alternative Stack)
+
+This runs the Express backend and Vite React frontend as separate services.
+
+#### 1. Install all dependencies
+
+```bash
+npm run install:all
+# or manually:
+npm install
+cd server && npm install
+cd ../client && npm install
+```
+
+#### 2. Configure environment variables
+
+Create `server/.env`:
+
+```env
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/talentgraph
+JWT_SECRET=your-super-secret-key-min-32-chars
+JWT_EXPIRES_IN=30d
+GEMINI_API_KEY=your-gemini-api-key-here
+CLIENT_URL=http://localhost:5173
+NODE_ENV=development
+```
+
+#### 3. Run both services concurrently
+
+```bash
+npm run dev:stack
+```
+
+| Service | URL |
+|---------|-----|
+| Vite React client | http://localhost:5173 |
+| Express API server | http://localhost:5000 |
+
+Or run them separately:
+
+```bash
+# Terminal 1 — Express server
+npm run dev:server
+
+# Terminal 2 — Vite client
+npm run dev:client
+```
+
+---
+
+### Available npm Scripts
+
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Start Next.js dev server (port 3000) |
+| `npm run build` | Build Next.js for production |
+| `npm run start` | Start Next.js production server |
+| `npm run lint` | Run ESLint |
+| `npm run dev:stack` | Run Express server + Vite client concurrently |
+| `npm run dev:server` | Run Express server only (port 5000) |
+| `npm run dev:client` | Run Vite client only (port 5173) |
+| `npm run install:all` | Install root + server + client dependencies |
+
+---
+
+## AI Reasoning Examples
 
 ### Semantic Search
 
@@ -359,18 +515,16 @@ Hard constraint applied: only candidates with ≥ 5 years experience considered.
 
 ---
 
-## 🎯 Hackathon Focus
+## Hackathon Focus
 
 This project addresses the two core AI challenges from the problem statement:
 
 1. **Smart Profile Ingestion** — Gemini extracts structured, reasoned profile data from unstructured resume PDFs with proficiency calibration and career trajectory analysis
 2. **Semantic Natural Language Search** — Gemini ranks candidates by semantic relevance, not keyword overlap, with per-candidate explanations grounded in actual profile data
 
-The goal was not to build another CRUD HR system — but a workforce reasoning platform that feels like a real next-generation AI product.
-
 ---
 
-## 🚀 Potential Future Improvements
+## Potential Future Improvements
 
 * Vector database (Pinecone / pgvector) for persistent semantic search at scale
 * Real-time availability forecasting based on project timelines
@@ -381,7 +535,7 @@ The goal was not to build another CRUD HR system — but a workforce reasoning p
 
 ---
 
-## 👨‍💻 Built by Solvex
+## Built by Solvex
 
 * **Surya Lad** — Product, engineering, and AI integration
 
@@ -389,7 +543,7 @@ Built with speed, AI-first thinking, and product-focused execution during the Sk
 
 ---
 
-## 📌 Submission Notes
+## Submission Notes
 
 Built as part of a hackathon challenge evaluated on:
 
@@ -403,6 +557,6 @@ TalentGraph AI prioritizes intelligent workflows, explainable AI decisions, and 
 
 ---
 
-## ⭐ Vision
+## Vision
 
 TalentGraph AI is designed to evolve beyond a hackathon prototype into a true AI-powered workforce intelligence operating system — helping organizations understand, grow, and deploy their human capital with the same precision they apply to their technology infrastructure.

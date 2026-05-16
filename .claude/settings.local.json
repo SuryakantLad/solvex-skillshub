@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"d:/Hackathon/solvex-skillshub/server/config\" \"d:/Hackathon/solvex-skillshub/server/middlewares\" \"d:/Hackathon/solvex-skillshub/server/models\" \"d:/Hackathon/solvex-skillshub/server/controllers\" \"d:/Hackathon/solvex-skillshub/server/routes\" \"d:/Hackathon/solvex-skillshub/server/services/ai\" \"d:/Hackathon/solvex-skillshub/server/services/github\" \"d:/Hackathon/solvex-skillshub/server/services/resume\" && echo \"dirs created\")",
+      "Bash(Get-ChildItem -Path \"D:\\\\Hackathon\\\\solvex-skillshub\\\\app\\\\\\(dashboard\\)\\\\hr\" -Recurse -Include \"*.jsx\", \"*.tsx\")",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Get-ChildItem -Path \"D:\\\\Hackathon\\\\solvex-skillshub\\\\app\\\\\\(dashboard\\)\\\\hr\" -Recurse -File)",
+      "Bash(Select-Object FullName)",
+      "Bash(npm install *)"
+    ],
+    "additionalDirectories": [
+      "d:\\Hackathon\\solvex-skillshub\\server"
+    ]
+  }
+}
